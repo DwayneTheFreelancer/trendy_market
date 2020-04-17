@@ -1,24 +1,26 @@
-import axios from 'axios';
-
-const baseUrl = "http://localhost:3000";
+const axios = require("axios");
 
 const api = axios.create({
-  baseURL: baseUrl,
+  baseURL: "http://localhost:3000"
 });
 
+// ====================================
+// ============= Auth =================
+// ====================================
+
 export const loginUser = async (loginData) => {
-  const resp = await api.post("/auth/login", { auth: loginData });
-  localStorage.setItem("authToken", resp.data.token);
+  const resp = await api.post('/auth/login', { auth: loginData });
+  localStorage.setItem('authToken', resp.data.token);
   api.defaults.headers.common.authorization = `Bearer ${resp.data.token}`;
   return resp.data.user;
-};
+}
 
 export const registerUser = async (registerData) => {
-  const resp = await api.post("/users/", { user: registerData });
-  localStorage.setItem("authToken", resp.data.token);
+  const resp = await api.post('/users/', { user: registerData })
+  localStorage.setItem('authToken', resp.data.token);
   api.defaults.headers.common.authorization = `Bearer ${resp.data.token}`;
-  return resp.data.user;
-};
+  return resp.data.user
+}
 
 export const verifyUser = async () => {
   const token = localStorage.getItem("authToken");
@@ -28,4 +30,8 @@ export const verifyUser = async () => {
     return resp.data;
   }
   return false;
-};
+}
+
+export const removeToken = () => {
+  api.defaults.headers.common.authorization = null;
+}
