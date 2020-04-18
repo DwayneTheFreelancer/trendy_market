@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 
 const Header = (props) => {
     return (
@@ -12,10 +12,19 @@ const Header = (props) => {
             <>
               <p>{props.currentUser.username}</p>
 
-              <button onClick={props.handleLogout}>logout</button>
+              {/* <button onClick={props.handleLogout}>logout</button> */}
+              <Button variant="primary" onClick={props.handleLogout}>
+                Logout
+              </Button>
             </>
           ) : (
-            <button onClick={props.handleLoginButton}>Login/register</button>
+            // <button onClick={props.handleLoginButton}>Login/register</button>
+            <Button variant="primary" onClick={props.handleLoginButton}>
+              Login/Register
+            </Button>
+            // <Button variant="primary" onClick={props.handleLoginButton}>
+            //   Register
+            // </Button>
           )}
         </Navbar.Collapse>
       </Navbar>

@@ -1,17 +1,12 @@
 import React from "react";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 // import Header from './components/Header';
 // import Jumbo from './components/Jumbo';
 import Login from './components/Login';
 import Register from './components/Register';
-
-// import {
-//   loginUser,
-//   registerUser,
-//   verifyUser,
-//   removeToken,
-// } from "./services/api-helper";
+import Jumbo from "./components/Jumbo";
 
 import {
   loginUser,
@@ -22,6 +17,7 @@ import {
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import Header from "./components/Header";
 
 class App extends React.Component {
   constructor(props) {
@@ -51,9 +47,9 @@ class App extends React.Component {
 
   // On page load, we grab all the foods and flavors
   // If so, we hit our verify route to get the user data.
-  // componentDidMount = () => {
-  //   this.handleVerify();
-  // };
+  componentDidMount = () => {
+    this.handleVerify();
+  };
 
   // // handle change function for our create food form
   // handleChange = (e) => {
@@ -128,30 +124,55 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <header>
+        {/* <header>
           <Link to="/">
             <h1>Trendy Market</h1>
-          </Link>
-          {/* Here we use a terinary to check if there is a logged in user set in state.
+          </Link> */}
+        {/* Here we use a terinary to check if there is a logged in user set in state.
               If there is no logged in user, we show a login button instead of the site nav */}
-          {this.state.currentUser ? (
-            <div>
-              {/* This is a greeting to the user if there user info has been set in state.
+        {/* {this.state.currentUser ? (
+            <div> */}
+        {/* This is a greeting to the user if there user info has been set in state.
               We use the guard operator to check '&&' */}
-              <h3>
+        {/* <h3>
                 Hi {this.state.currentUser && this.state.currentUser.email}
                 <button onClick={this.handleLogout}>logout</button>
               </h3>
-              {/* <Link to="/food">View All Food</Link> */}
+              <Link to="/food">View All Food</Link>
               &nbsp;
-              {/* <Link to="/flavors">View All Flavors</Link> */}
+              <Link to="/flavors">View All Flavors</Link>
               <hr />
             </div>
           ) : (
             <button onClick={this.handleLoginButton}>Login/register</button>
           )}
-        </header>
+        </header> */}
+        {/* <Header /> */}
         {/* setting up our routes */}
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Brand href="/">Trendy Market</Navbar.Brand>
+          {/* Here we use a terinary to check if there is a logged in user set in state.
+              If there is no logged in user, we show a login button instead of the site nav */}
+          <Nav.Link href="/products">Products</Nav.Link>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            {this.state.currentUser ? (
+              <>
+                <p>{this.state.currentUser.username}</p>
+
+                {/* <button onClick={props.handleLogout}>logout</button> */}
+                <Button variant="primary" onClick={this.handleLogout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <div>
+                  <Link to="/login">Login</Link>
+                  <Link to="/register">Register</Link>
+              </div>
+            )}
+          </Navbar.Collapse>
+        </Navbar>
         <Route
           exact
           path="/login"
@@ -174,6 +195,7 @@ class App extends React.Component {
             />
           )}
         />
+        <Jumbo />
         {/* <Route
           exact
           path="/food"
