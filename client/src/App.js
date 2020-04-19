@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 // import Header from './components/Header';
 // import Jumbo from './components/Jumbo';
@@ -151,28 +151,45 @@ class App extends React.Component {
         {/* setting up our routes */}
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/">Trendy Market</Navbar.Brand>
-          {/* Here we use a terinary to check if there is a logged in user set in state.
-              If there is no logged in user, we show a login button instead of the site nav */}
           <Nav.Link href="/products">Products</Nav.Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             {this.state.currentUser ? (
-              <>
+              <div>
                 <p>{this.state.currentUser.username}</p>
-
-                {/* <button onClick={props.handleLogout}>logout</button> */}
                 <Button variant="primary" onClick={this.handleLogout}>
                   Logout
                 </Button>
-              </>
-            ) : (
-              <div>
-                  <Link to="/login">Login</Link>
-                  <Link to="/register">Register</Link>
               </div>
+            ) : (
+              <>
+                <Nav.Link href="/login" onClick={this.handleLoginButton}>
+                  Login
+                </Nav.Link>
+                <Nav.Link href="/Register">
+                  Register
+                </Nav.Link>
+              </>
             )}
           </Navbar.Collapse>
         </Navbar>
+        {/* <header>
+          <Link to="/">
+            <h1>Trendy Market</h1>
+          </Link>
+          {this.state.currentUser ? (
+            <div>
+              <h3>
+                Hi {this.state.currentUser && this.state.currentUser.email}
+                <button onClick={this.handleLogout}>logout</button>
+              </h3>
+              &nbsp;
+              <hr />
+            </div>
+          ) : (
+            <button onClick={this.handleLoginButton}>Login/register</button>
+          )}
+        </header> */}
         <Route
           exact
           path="/login"
