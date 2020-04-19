@@ -6,7 +6,7 @@ const Jumbo = () => {
     <Jumbotron fluid>
       <Container>
         <h1>
-          Welcome to <span>Trendy Market</span> online Product Blog!
+          Welcome to <span class="">Trendy Market</span> online Product Blog!
         </h1>
         <p>
           This is a modified jumbotron that occupies the entire horizontal space
