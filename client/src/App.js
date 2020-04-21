@@ -157,34 +157,34 @@ class App extends React.Component {
   };
 
 
-  // handleDelete = async (event) => {
-  //   const id = event.target.id;
-  //   await deleteRecipe(id);
-  //   this.setState((prevState) => ({
-  //     recipes: [
-  //       ...prevState.recipes.filter((recipe) => {
-  //         return recipe.id !== parseInt(id);
-  //       }),
-  //     ],
-  //     currentUserRecipes: [
-  //       ...prevState.currentUserRecipes.filter((currentRecipe) => {
-  //         return currentRecipe.id !== parseInt(id);
-  //       }),
-  //     ],
-  //   }));
-  //   this.props.history.push("/recipes");
-  // };
+  handleDelete = async (event) => {
+    const id = event.target.id;
+    await deleteProduct(id);
+    this.setState((prevState) => ({
+      products: [
+        ...prevState.products.filter((product) => {
+          return product.id !== parseInt(id);
+        }),
+      ],
+      currentUserProducts: [
+        ...prevState.currentUserProducts.filter((currentProduct) => {
+          return currentProduct.id !== parseInt(id);
+        }),
+      ],
+    }));
+    this.props.history.push("/products");
+  };
 
   handleEdit = async (id, productData) => {
     const newProduct = await putProduct(id, productData);
     this.setState((prevState) => ({
       products: [
-        ...prevState.recipes.map((product) =>
+        ...prevState.products.map((product) =>
           product.id === newProduct.id ? newProduct : product
         ),
       ]
     }));
-    this.props.history.push(`/products/${id}`);
+    this.props.history.push(`/products`);
   };
 
   // handleEditUser = async (id, formData) => {
@@ -282,6 +282,7 @@ class App extends React.Component {
                 products={this.state.products}
                 currentUser={this.state.currentUser}
                 currentUserProducts={this.state.currentUserProducts}
+                handleDelete={this.handleDelete}
                 // handleLogout={this.handleLogout}
               />
             )}
@@ -303,8 +304,6 @@ class App extends React.Component {
           path="/edit/:id"
           render={(props) => (
             <EditProduct
-              id={props.match.params.id}
-              handleChange={this.handleChange}
               handleEdit={this.handleEdit}
               currentUser={this.state.currentUser}
             />
